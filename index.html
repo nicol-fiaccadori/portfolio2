@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+  <style>
+  html,
+body {
+  margin: 0;
+}
+.wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.bg {
+  position: absolute;
+}
+.bg h1 {
+  position: absolute;
+  padding: 0 1rem;
+  color: white;
+}
+.bg img,
+.bg #container {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+.bg.slideup {
+  top: 100vh;
+  transition: top 400ms;
+}
+.bg.slideup.active {
+  top: 0;
+}
+.bg.slideleft {
+  left: 100vw;
+  transition: left 400ms;
+}
+.bg.slideleft.active {
+  left: 0;
+}
+.bg.slideright {
+  right: 100vw;
+  transition: right 400ms;
+}
+.bg.slideright.active {
+  right: 0;
+}
+.bg.slidedown {
+  bottom: 100vh;
+  transition: bottom 400ms;
+}
+.bg.slidedown.active {
+  bottom: 0;
+}
+#slideup {
+  position: fixed;
+  bottom: 0;
+  left: 50vw;
+  transform: translate(-50%);
+  z-index: 2;
+}
+#slideleft {
+  position: fixed;
+  right: 0;
+  top: 50vh;
+  transform: translate(0, -50%);
+  z-index: 2;
+}
+#slideright {
+  position: fixed;
+  left: 0;
+  top: 50vh;
+  transform: translate(0, -50%);
+  z-index: 2;
+}
+#slidedown {
+  position: fixed;
+  top: 0;
+  right: 50vw;
+  transform: translate(50%);
+  z-index: 2;
+}
+
+  </style>
+</head>
+<body>
+  
+<button id="slideup">Slide up</button>
+  <button id="slideleft">Slide left</button>
+  <button id="slideright">Slide right</button>
+  <button id="slidedown">Slide down</button>
+
+  <div class="wrapper">
+
+    <div class="bg">
+      <h1>Foo</h1>
+      <div id="container"></div>
+    </div>
+
+    <div id="bar" class="bg slideup">
+      <h1>Bar</h1>
+      <img src="https://placekitten.com/g/1200/800" alt="">
+    </div>
+
+    <div id="baz" class="bg slideleft">
+      <h1>Baz</h1>
+      <img src="https://placekitten.com/1202/800" alt="">
+    </div>
+
+    <div id="qux" class="bg slideright">
+      <h1>Qux</h1>
+      <img src="https://placekitten.com/1201/800" alt="">
+    </div>
+
+    <div id="quux" class="bg slidedown">
+      <h1>Quux</h1>
+      <img src="https://placekitten.com/1203/800" alt="">
+    </div>
+
+  </div>
+  
+  
+  <script>
+  const slideup = document.querySelector("#slideup");
+const bar = document.querySelector("#bar");
+slideup.onclick = function() {
+  const active = bar.classList.toggle("active");
+  slideup.innerHTML = active ? "Slide down" : "Slide up";
+};
+const slideleft = document.querySelector("#slideleft");
+const baz = document.querySelector("#baz");
+slideleft.onclick = function() {
+  const active = baz.classList.toggle("active");
+  slideleft.innerHTML = active ? "Slide right" : "Slide left";
+};
+const slideright = document.querySelector("#slideright");
+const qux = document.querySelector("#qux");
+slideright.onclick = function() {
+  const active = qux.classList.toggle("active");
+  slideright.innerHTML = active ? "Slide left" : "Slide right";
+};
+const slidedown = document.querySelector("#slidedown");
+const quux = document.querySelector("#quux");
+slidedown.onclick = function() {
+  const active = quux.classList.toggle("active");
+  slidedown.innerHTML = active ? "Slide up" : "Slide down";
+};
+
+// p5
+// https://github.com/processing/p5.js/wiki/Positioning-your-canvas
+
+const width = 1200;
+const height = 1200;
+
+let black;
+let white;
+
+function setup() {
+  var canvas = createCanvas(width, height);
+  black = color(50);
+  white = color(225);
+  canvas.parent("container");
+}
+
+function draw() {
+  background(220);
+  for (let i = 0; i < width / 50; i = i + 1) {
+    for (let j = 0; j < height / 50; j = j + 1) {
+      if ((i % 2 === 1 && j % 2 === 1) || (i % 2 === 0 && j % 2 === 0)) {
+        fill(black);
+      } else {
+        fill(white);
+      }
+      square(i * 50, j * 50, 50);
+    }
+  }
+}
+
+  </script>
+</body>
+</html>
